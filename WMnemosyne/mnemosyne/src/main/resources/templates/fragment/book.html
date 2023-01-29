@@ -1,0 +1,45 @@
+<div th:fragment="book-list">
+	<h1>Mnémosyne - Marque page en ligne</h1>
+	<table class="table">
+		<thead class="thead-dark">
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+				<a class="btn btn-danger" href="/logout">Déconnexion</a>
+			</div>
+			<tr>
+				<th scope="col">Nom</th>
+				<th scope="col">Page</th>
+				<th scope="col">Commentaire</th>
+				<th scope="col"></th>
+				<th>
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+						<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
+							Ajouter une nouvelle oeuvre
+						</button>
+					</div>
+				</th>
+			</tr>
+
+		</thead>
+		<tr th:each="book : ${books}">
+			<td th:text="${book.name}" />
+			<td th:text="${book.page}" />
+			<td th:text="${book.commentary}" />
+			<td>
+				<form action="#" th:action="@{/delete-book}" method="post">
+					<input type="hidden" th:value="${book.id}" name="id" />
+					<button type="submit" class="btn btn-danger">Supprimer</button>
+				</form>
+			</td>
+			<td class="table-right-col" th:if="${logged}"><a th:href="@{/edit-book/{id}(id=${book.id})}"
+					class="btn btn-primary">modifier</a></td>
+		</tr>
+	</table>
+	<div class="page-book-container" th:if="${books.totalPages > 0 }">
+		<div class="pagination" th:each="pageNumber: ${pageNumbers}">
+			<a th:href="@{/(page=${pageNumber})}" th:text=${pageNumber} class="page-link"
+				th:classappend="${pageNumber==books.number + 1} ? active"></a>
+		</div>
+
+	</div>
+
+</div>

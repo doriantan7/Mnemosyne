@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mnemosyne - modifier une oeuvre</title>
+	<!-- bootstrap -->
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css} " />
+</head>
+
+<body>
+	<div class="container">
+		<h1>Mnémosyne - Marque page en ligne</h1>
+
+		<form action="#" th:action="@{/update-book}" method="post">
+			<div>
+				<input type="text" name="id" id="id" th:value="${book.id}" hidden>
+				<div class="mb-3">
+					<label for="name" class="form-label">Nom de l'oeuvre</label>
+					<input type="text" name="name" class="form-control" id="name" th:value="${book.name}">
+				</div>
+				<div class="mb-3">
+					<label for="page" class="form-label">Numéro de page</label>
+					<input type="number" name="page" class="form-control" id="page" th:value="${book.page}">
+				</div>
+				<div class="mb-3">
+					<label for="commentary" class="form-label">Commentaire</label>
+					<input type="text"  name="commentary" class="form-control" id="commentary" th:value="${book.commentary}">
+				</div>
+
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+		<!-- webjat footer -->
+		<div th:replace="fragment/common :: webjar-footer"></div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mnemosyne - login</title>
+	<!-- bootstrap -->
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css} " />
+</head>
+
+<body>
+	<div class="container">
+		<h1>Mnémosyne</h1>
+		<div class="container">
+			<form action="create-person" method="post" class="login-form">
+				<div class="mb-3">
+					<label for="pseudo" class="form-label">Pseudo</label>
+					<input type="text" name="pseudo" class="form-control" id="pseudo">
+				</div>
+				<div class="mb-3">
+					<label for="password" class="form-label">Mot de passe</label>
+					<input type="password" name="password" class="form-control" id="password">
+				</div>
+				<div class="mb-3">
+					<label for="passwordCheck" class="form-label">Confirmation de mot de passe</label>
+					<input type="password" name="passwordCheck" class="form-control" id="passwordCheck">
+				</div>
+
+				<button type="submit" class="btn btn-primary">Soumettre</button>
+			</form>
+
+			<!-- webjat footer -->
+			<div th:replace="fragment/common :: webjar-footer"></div>
+		</div>
+	</div>
+</body>
+
+
+</html>

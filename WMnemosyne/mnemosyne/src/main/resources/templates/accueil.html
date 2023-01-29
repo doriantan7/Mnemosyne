@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mnemosyne</title>
+	<!-- bootstrap -->
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css} " />
+	<link rel="stylesheet" type="text/css" th:href="@{/CSS/main.css}" />
+</head>
+
+<body>
+
+
+	<div class="container">
+		<!-- liste des book -->
+		<div th:replace="fragment/book :: book-list"></div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="addModalLabel">Ajouter une oeuvre</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form action="#" th:action="@{/save-book}" method="post">
+						<div class="mb-3">
+							<label for="name" class="form-label">Nom de l'oeuvre</label>
+							<input type="text" name="name" class="form-control" id="name">
+						</div>
+						<div class="mb-3">
+							<label for="page" class="form-label">numéro de page</label>
+							<input type="number" name="page" class="form-control" id="page">
+						</div>
+						<div class="mb-3">
+							<label for="commentary" class="form-label">Commentaire</label>
+							<input type="text" name="commentary" class="form-control" id="commentary">
+						</div>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Save changes</button>
+					</form>
+				</div>
+				<div class="modal-footer">
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- webjat footer -->
+	<div th:replace="fragment/common :: webjar-footer"></div>
+
+</body>
+
+</html>
