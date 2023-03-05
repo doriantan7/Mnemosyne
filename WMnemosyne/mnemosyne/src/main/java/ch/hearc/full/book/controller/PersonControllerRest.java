@@ -3,19 +3,19 @@ package ch.hearc.full.book.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import ch.hearc.full.book.model.Person;
 import ch.hearc.full.book.service.BookService;
 import ch.hearc.full.person.repository.PersonRepository_I;
 import jakarta.servlet.http.HttpSession;
 
-@Controller
-public class PersonController {
+@RestController
+public class PersonControllerRest {
 
 	@Autowired
 	private PersonRepository_I personRepo;
