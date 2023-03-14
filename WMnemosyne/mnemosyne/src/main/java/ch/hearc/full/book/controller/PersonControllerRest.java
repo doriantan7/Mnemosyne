@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,7 @@ import ch.hearc.full.person.repository.PersonRepository_I;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
+@RequestMapping("/api")
 public class PersonControllerRest {
 
 	@Autowired
@@ -35,7 +37,7 @@ public class PersonControllerRest {
 	@PostMapping("/login-person")
 	public String loginPerson(@RequestParam String pseudo, @RequestParam String password, HttpSession session) {
 		Person searchPerson = personRepo.findByPseudo(pseudo);
-		if (searchPerson != null && passwordEncoder.matches(password, searchPerson.getPassword())){
+		if (searchPerson != null && passwordEncoder.matches(password, searchPerson.getPassword())) {
 			session.setAttribute("person", searchPerson);
 			return "redirect:/accueil";
 		}
@@ -43,7 +45,7 @@ public class PersonControllerRest {
 	}
 
 	@GetMapping("/create-account")
-	public String ShowCreatePersonrPage(Model model, HttpSession session) {
+	public String showCreatePersonPage(Model model, HttpSession session) {
 		model.addAttribute("logged", false);
 		return "create-account";
 	}

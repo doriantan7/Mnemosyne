@@ -32,12 +32,12 @@ public class BookService implements BookService_I {
 	}
 
 	/**
-	 * Retourne tous les livres dans l'ordre alphabetique 
+	 * Retourne tous les livres dans l'ordre alphabetique
 	 * 
 	 * @return la liste des livres
 	 */
 	public List<Book> getAllBooksFromLibraryByPerson(Person person) {
-		List<Book> result = new ArrayList<Book>();	
+		List<Book> result = new ArrayList<Book>();
 		bookRepository.findBookByPerson(person).forEach(result::add);
 		Collections.sort(result, Book.BookNameComparator);
 		return result;
@@ -58,23 +58,30 @@ public class BookService implements BookService_I {
 		return bookRepository.findById(new Long(id)).get();
 
 	}
-	
-    @Override
-    public Page<Book> getBooksByUserPaginated(Pageable pageable, Person person) {
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<Book> allbooks = this.getAllBooksFromLibraryByPerson(person);
-        List<Book> pagedBooks;
-        if (allbooks.size() < startItem) {
-        	pagedBooks = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, allbooks.size());
-            pagedBooks = allbooks.subList(startItem, toIndex);
-        }
-        Page<Book> bookPage = new PageImpl<Book>(pagedBooks, PageRequest.of(currentPage, pageSize), allbooks.size());
 
-        return bookPage;
-    }
+	@Override
+	public Page<Book> getBooksByUserPaginated(Pageable pageable, Person person) {
+		int pageSize = pageable.getPageSize();
+		int currentPage = pageable.getPageNumber();
+		int startItem = currentPage * pageSize;
+		List<Book> allbooks = this.getAllBooksFromLibraryByPerson(person);
+		List<Book> pagedBooks;
+		if (allbooks.size() < startItem) {
+			pagedBooks = Collections.emptyList();
+		} else {
+			int toIndex = Math.min(startItem + pageSize, allbooks.size());
+			pagedBooks = allbooks.subList(startItem, toIndex);
+		}
+		Page<Book> bookPage = new PageImpl<Book>(pagedBooks, PageRequest.of(currentPage, pageSize), allbooks.size());
 
+		return bookPage;
+	}
+
+	@Override
+	public List<Book> getAllBooks() {
+		List<Book> result = new ArrayList<Book>();
+		bookRepository.findAll().forEach(result::add);
+		Collections.sort(result, Book.BookNameComparator);
+		return result;
+	}
 }
