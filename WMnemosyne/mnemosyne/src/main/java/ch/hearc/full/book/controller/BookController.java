@@ -32,21 +32,22 @@ public class BookController {
 	PersonService personService;
 
 	@GetMapping(value = { "/", "/accueil" })
-	public String showAccueilPage(Model model, HttpSession session,@RequestParam("page") Optional<Integer> page) {
+	public String showAccueilPage(Model model, HttpSession session, @RequestParam("page") Optional<Integer> page) {
 		int currentPage = page.orElse(1);
 		Person person = (Person) session.getAttribute("person");
 		if (person != null) {
 			model.addAttribute("logged", true);
-			
+
 			Page<Book> bookPage = bookService.getBooksByUserPaginated(PageRequest.of(currentPage - 1, 5), person);
-            int totalPages = bookPage.getTotalPages();
-            if (totalPages > 0) {
-                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
-                model.addAttribute("pageNumbers", pageNumbers);
-            }
-            model.addAttribute("books", bookPage);
-			
-			//model.addAttribute("books", bookService.getAllBooksFromLibraryByPerson(person));
+			int totalPages = bookPage.getTotalPages();
+			if (totalPages > 0) {
+				List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+				model.addAttribute("pageNumbers", pageNumbers);
+			}
+			model.addAttribute("books", bookPage);
+
+			// model.addAttribute("books",
+			// bookService.getAllBooksFromLibraryByPerson(person));
 		} else {
 			return "redirect:/login";
 		}
@@ -88,6 +89,5 @@ public class BookController {
 		bookService.addBookToLibrary(book);
 		return "redirect:/accueil";
 	}
-	
 
 }

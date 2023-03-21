@@ -1,7 +1,5 @@
 package ch.hearc.full;
 
-import static org.mockito.ArgumentMatchers.booleanThat;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,13 +26,12 @@ class MnemosyneApplicationTests {
 	Book book2 = new Book();
 	Person person = new Person();
 
-	
 	/**
 	 * ***********************************************************
 	 * Test Person
 	 * ************************************************************
 	 */
-	
+
 	@Test
 	void canAddPerson() {
 		person.setPseudo("test");
@@ -44,9 +41,7 @@ class MnemosyneApplicationTests {
 
 		Assert.notNull(personService.getPersonById(person.getId()), "User not found");
 	}
-	
-	
-	
+
 	/**
 	 * ***********************************************************
 	 * Test Book
@@ -82,7 +77,7 @@ class MnemosyneApplicationTests {
 			Assert.isTrue(true, "Book found");
 		}
 	}
-	
+
 	@Test
 	void canEditBook() {
 		book1.setName("test");
@@ -91,12 +86,12 @@ class MnemosyneApplicationTests {
 		book1.setPerson(personService.getPersonById(1));
 
 		bookService.addBookToLibrary(book1);
-		
+
 		book1.setName("testEdit");
-		
+
 		bookService.updateBook(book1);
-		
-		Assert.isTrue(book1.getName().equals("testEdit"),"Not edit");
+
+		Assert.isTrue(book1.getName().equals("testEdit"), "Not edit");
 	}
 
 	@Test

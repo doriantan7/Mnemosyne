@@ -32,5 +32,10 @@ public interface BookService_I {
 
 	public Page<Book> getBooksByUserPaginated(Pageable pageable, Person person);
 
+	// RestFull method
 	public List<Book> getAllBooks();
+
+	public Book deleteBookById(Long id);
+
+	public Book updateBookById(Long id, Book book);
 }

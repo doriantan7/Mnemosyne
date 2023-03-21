@@ -44,18 +44,13 @@ public class BookService implements BookService_I {
 	}
 
 	public void deleteBook(Long id) {
-		bookRepository.deleteById(new Long(id));
+		bookRepository.deleteById(id);
 
 	}
 
 	public Book updateBook(Book book) {
 		bookRepository.save(book);
 		return book;
-
-	}
-
-	public Book getBookById(Long id) {
-		return bookRepository.findById(new Long(id)).get();
 
 	}
 
@@ -72,16 +67,37 @@ public class BookService implements BookService_I {
 			int toIndex = Math.min(startItem + pageSize, allbooks.size());
 			pagedBooks = allbooks.subList(startItem, toIndex);
 		}
-		Page<Book> bookPage = new PageImpl<Book>(pagedBooks, PageRequest.of(currentPage, pageSize), allbooks.size());
+		Page<Book> bookPage = new PageImpl<Book>(pagedBooks, PageRequest.of(currentPage, pageSize),
+				allbooks.size());
 
 		return bookPage;
+	}
+
+	// RestFull method
+
+	public Book getBookById(Long id) {
+		return bookRepository.findById(id).get();
+
 	}
 
 	@Override
 	public List<Book> getAllBooks() {
 		List<Book> result = new ArrayList<Book>();
 		bookRepository.findAll().forEach(result::add);
-		Collections.sort(result, Book.BookNameComparator);
+		// Collections.sort(result, Book.BookNameComparator);
 		return result;
+	}
+
+	@Override
+	public Book deleteBookById(Long id) {
+		Book book = bookRepository.findById(id).get();
+		bookRepository.deleteById(id);
+		return book;
+	}
+
+	public Book updateBookById(Long id, Book book) {
+		deleteBookById(id);
+		bookRepository.save(book);
+		return book;
 	}
 }
