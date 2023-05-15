@@ -46,4 +46,11 @@ public class BookRestService implements BookRestService_I {
 	public void addBookToLibrary(BookRest book) {
 		bookRestRepository.save(book);
 	}
+
+    public List<BookRest> findBook(String searchTerm) {
+		List<BookRest> result = new ArrayList<BookRest>();
+		bookRestRepository.findByNameContainingIgnoreCase(searchTerm).forEach(result::add);
+		Collections.sort(result, BookRest.BookNameComparator);
+		return result;
+    }
 }

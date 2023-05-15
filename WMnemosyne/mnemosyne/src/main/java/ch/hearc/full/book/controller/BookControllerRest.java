@@ -2,6 +2,7 @@ package ch.hearc.full.book.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.hearc.full.book.model.BookRest;
 import ch.hearc.full.book.service.BookRestService;
-
+@CrossOrigin(origins = "http://127.0.0.1:5173")
 @RestController
 @RequestMapping("/api")
 public class BookControllerRest {
@@ -49,5 +50,10 @@ public class BookControllerRest {
 		String oldName = oldBook.getName();
 		bookService.updateBookById(id, newBook);
 		return "Book " + oldName + " updated to " + newBook.getName();
+	}
+
+	@PostMapping(value="/book/find/{searchTerm}")
+	public List<BookRest> findBook(@PathVariable("searchTerm") String searchTerm) {
+		return bookService.findBook(searchTerm);
 	}
 }

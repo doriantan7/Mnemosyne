@@ -15,4 +15,6 @@ public interface BookRestRepository_I extends CrudRepository<BookRest, Long> {
 	BookRest findById(long id);
 
 	BookRest findByName(String name);
+
+    Iterable<BookRest> findByNameContainingIgnoreCase(String searchTerm);
 }
